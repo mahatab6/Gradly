@@ -1,0 +1,19 @@
+import React from "react";
+import { Link } from "react-router";
+
+export default function AuthNavbar() {
+  return (
+    <div className="navbar bg-white shadow-sm border-b border-black">
+      <div className="w-11/12 mx-auto">
+        <div className="navbar-start ">
+          <Link to={'/'} className='text-2xl font-bold text-black'>Gradly</Link>
+        </div>
+        <div className="navbar-end">
+          <Link to={"/login"} className="btn">
+            Login
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
