@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export default function Logo() {
   return (
     <div>
-        <h1 className='text-2xl font-bold text-blue-600'>Gradly</h1>
+        <Link to={'/'} className='text-2xl font-bold text-black text-blue-600'>Gradly</Link>
     </div>
   )
 }

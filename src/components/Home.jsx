@@ -29,9 +29,9 @@ export default function Home() {
               Get Started Free
             </Link>
             
-            <button className="bg-gray-100 text-black px-6 py-3 text-lg font-medium rounded-2xl shadow hover:cursor-pointer hover:bg-gray-200 transition">
+            <Link to={'/dashboard'} className="bg-gray-100 text-black px-6 py-3 text-lg font-medium rounded-2xl shadow hover:cursor-pointer hover:bg-gray-200 transition">
               🚀 Explore Dashboard
-            </button>
+            </Link>
           </div>
         </div>
 
