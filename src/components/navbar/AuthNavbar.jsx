@@ -8,9 +8,12 @@ export default function AuthNavbar() {
         <div className="navbar-start ">
           <Link to={'/'} className='text-2xl font-bold text-black'>Gradly</Link>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end gap-3">
           <Link to={"/login"} className="btn">
             Login
+          </Link>
+          <Link to={"/register"} className="btn">
+            Register
           </Link>
         </div>
       </div>
