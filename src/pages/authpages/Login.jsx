@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 
 export default function Login() {
-  const { googleSign } = useAuth();
+  const { googleSign, userSignIN } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -15,7 +15,19 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Login Data:", data);
+    userSignIN(data.email, data.password)
+      .then((result) => {
+        if (result?.user?.email) {
+          toast.success("Login successfully!");
+          navigate('/dashboard');
+        }
+      })
+
+      .catch((error) => {
+        if (error) {
+          toast.error(`${error.message}`);
+        }
+      });
   };
 
   const handleGoogleLogin = () => {
