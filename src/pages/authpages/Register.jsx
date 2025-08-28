@@ -1,9 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function Register() {
+  const { createUser, userProfile } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,7 +15,19 @@ export default function Register() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Register Data:", data);
+    createUser(data?.email, data?.password)
+      .then((result) => {
+        if (result?.user?.email) {
+          toast.success("Account created successfully!");
+          userProfile(data?.name);
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          toast.error(`${error.message}`);
+        }
+      });
   };
 
   const handleGoogleRegister = () => {
@@ -22,13 +38,17 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="w-full max-w-md shadow-lg rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-center mb-6 text-black">Register</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-black">
+          Register
+        </h1>
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium mb-1 text-black">Name</label>
+            <label className="block text-sm font-medium mb-1 text-black">
+              Name
+            </label>
             <input
               type="text"
               {...register("name", { required: "Name is required" })}
@@ -42,7 +62,9 @@ export default function Register() {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium mb-1 text-black">Email</label>
+            <label className="block text-sm font-medium mb-1 text-black">
+              Email
+            </label>
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
@@ -56,7 +78,9 @@ export default function Register() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium mb-1 text-black">Password</label>
+            <label className="block text-sm font-medium mb-1 text-black">
+              Password
+            </label>
             <input
               type="password"
               {...register("password", { required: "Password is required" })}
@@ -87,7 +111,7 @@ export default function Register() {
         {/* Google Button */}
         <button
           onClick={handleGoogleRegister}
-          className="w-full flex items-center justify-center border rounded-lg py-2 hover:bg-gray-100 transition text-black hover:cursor-pointer" 
+          className="w-full flex items-center justify-center border rounded-lg py-2 hover:bg-gray-100 transition text-black hover:cursor-pointer"
         >
           <FcGoogle className="text-xl mr-2 " />
           Continue with Google
