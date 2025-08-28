@@ -18,6 +18,7 @@ export default function Dashboard() {
           <p className='text-base md:text-xl'>Current Time</p>
         </div>
       </div>
+      
     </div>
   )
 }
