@@ -6,6 +6,8 @@ import Register from "../pages/authpages/register";
 import MainLayout from "../layout/MainLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Schedule from "../pages/Dashboard/Schedule";
+import LoadingPage from "../pages/LoadingPage";
+import PrivateRouter from "./PrivateRouter";
 
 
 export const router = createBrowserRouter([
@@ -25,11 +27,15 @@ export const router = createBrowserRouter([
             path:"register",
             element:<Register/>
         },
+        {
+            path:"loading",
+            element:<LoadingPage/>
+        },
     ]
   },
   {
     path:"/dashboard",
-    element:<MainLayout/>,
+    element:<PrivateRouter><MainLayout/></PrivateRouter>,
     children:[
       {
         index: true,
