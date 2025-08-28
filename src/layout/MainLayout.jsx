@@ -5,7 +5,7 @@ import { Link, Outlet } from "react-router";
 export default function MainLayout() {
   return (
     <div>
-      <div className="drawer ">
+      <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content ">
           <DashboardNavbar id={"my-drawer-2"} />
