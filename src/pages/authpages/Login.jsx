@@ -1,9 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function Login() {
+  const { googleSign } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,20 +19,34 @@ export default function Login() {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Google login clicked");
-    // your google auth logic here
+    googleSign()
+      .then((result) => {
+        if (result.user?.email) {
+          toast.success("Account created successfully!");
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          toast.error(`${error.message}`);
+        }
+      });
   };
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="w-full max-w-md shadow-lg rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-center mb-6 text-black">Login</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-black">
+          Login
+        </h1>
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Email */}
           <div>
-            <label className="block text-black text-sm font-medium mb-1">Email</label>
+            <label className="block text-black text-sm font-medium mb-1">
+              Email
+            </label>
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
@@ -42,7 +60,9 @@ export default function Login() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium mb-1 text-black">Password</label>
+            <label className="block text-sm font-medium mb-1 text-black">
+              Password
+            </label>
             <input
               type="password"
               {...register("password", { required: "Password is required" })}

@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 
 export default function Register() {
-  const { createUser, userProfile } = useAuth();
+  const { createUser, userProfile, googleSign } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -31,8 +31,18 @@ export default function Register() {
   };
 
   const handleGoogleRegister = () => {
-    console.log("Google register clicked");
-    // your google auth logic here
+    googleSign()
+      .then((result) => {
+        if (result.user?.email) {
+          toast.success("Account created successfully!");
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          toast.error(`${error.message}`);
+        }
+      });
   };
 
   return (
