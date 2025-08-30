@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import AddClassForm from "./scheduleItems/AddClassForm";
 
 export default function Schedule() {
+
+  
   return (
     <div className="w-11/12 mx-auto">
       <div className="flex justify-between gap-5 items-center">
@@ -25,11 +27,11 @@ export default function Schedule() {
 
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <AddClassForm />
+          <AddClassForm/>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn" onClick={closeModal}>Close</button>
             </form>
           </div>
         </div>

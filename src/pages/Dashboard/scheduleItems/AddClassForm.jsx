@@ -1,15 +1,25 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 export default function AddClassForm() {
+
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Class Data:", data);
+  const onSubmit =async (data) => {
+    
+    const res = await axiosSecure.post('/add-class', data);
+    if(res?.data?.insertedId){
+      toast.success("Add your new class");
+      reset();
+    }
   };
 
   return (
