@@ -2,10 +2,21 @@ import React, { useRef } from "react";
 import AddClassForm from "./scheduleItems/AddClassForm";
 
 export default function Schedule() {
+  const modalRef = useRef(null);
+
+  const openModal = () => {
+    modalRef.current?.showModal();
+  };
+
+  const closeModal = () => {
+    modalRef.current?.close();
+  };
 
   
+
   return (
     <div className="w-11/12 mx-auto">
+      {/* Header Section */}
       <div className="flex justify-between gap-5 items-center">
         <div>
           <h2 className="text-xl md:text-3xl lg:text-4xl font-extrabold">
@@ -17,7 +28,7 @@ export default function Schedule() {
         </div>
         <div>
           <button
-            onClick={() => document.getElementById("my_modal_5").showModal()}
+            onClick={openModal}
             className="text-base md:text-xl btn hover:bg-blue-500 p-1"
           >
             Add Class
@@ -25,12 +36,22 @@ export default function Schedule() {
         </div>
       </div>
 
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+      {/* Data Section */}
+      <div>data</div>
+
+      {/* Modal Section */}
+      <dialog
+        id="my_modal_5"
+        ref={modalRef}
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box">
-          <AddClassForm/>
+          {/* Pass closeModal so the form can close modal after success */}
+          <AddClassForm closeModal={closeModal} />
+
           <div className="modal-action">
+            {/* Close button with method="dialog" for quick closing */}
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
