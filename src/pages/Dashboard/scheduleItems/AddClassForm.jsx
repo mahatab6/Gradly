@@ -13,7 +13,12 @@ export default function AddClassForm({ closeModal }) {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const res = await axiosSecure.post("/add-class", data);
+    const fullData = {
+      ...data,
+      date: new Date(data.date)
+      
+    }
+    const res = await axiosSecure.post("/add-class", fullData);
     if (res?.data?.insertedId) {
       toast.success("Add your new class");
       reset();

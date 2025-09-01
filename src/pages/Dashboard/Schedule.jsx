@@ -1,7 +1,11 @@
 import React, { useRef } from "react";
 import AddClassForm from "./scheduleItems/AddClassForm";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function Schedule() {
+
+  const axiosSecure = useAxiosSecure();
   const modalRef = useRef(null);
 
   const openModal = () => {
@@ -12,7 +16,16 @@ export default function Schedule() {
     modalRef.current?.close();
   };
 
-  
+  const {data } = useQuery({
+    queryKey: ['card-data'],
+    queryFn: async() =>{
+      const result = await axiosSecure.get("/classes");
+      return result.data;
+      
+    }
+  })
+ 
+  console.log(data)
 
   return (
     <div className="w-11/12 mx-auto">
