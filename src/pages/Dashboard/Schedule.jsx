@@ -17,7 +17,7 @@ export default function Schedule() {
     modalRef.current?.close();
   };
 
-  const {data } = useQuery({
+  const {data,refetch } = useQuery({
     queryKey: ['card-data'],
     queryFn: async() =>{
       const result = await axiosSecure.get("/classes");
@@ -60,7 +60,7 @@ export default function Schedule() {
       >
         <div className="modal-box">
           {/* Pass closeModal so the form can close modal after success */}
-          <AddClassForm closeModal={closeModal} />
+          <AddClassForm closeModal={closeModal} refetch={refetch}/>
 
           <div className="modal-action">
             {/* Close button with method="dialog" for quick closing */}

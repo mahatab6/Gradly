@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
-export default function AddClassForm({ closeModal }) {
+export default function AddClassForm({ closeModal, refetch }) {
   const axiosSecure = useAxiosSecure();
   function convertTo12Hour(time24) {
     if (!time24) return "";
@@ -34,6 +34,7 @@ export default function AddClassForm({ closeModal }) {
     if (res?.data?.insertedId) {
       toast.success("Add your new class");
       reset();
+      refetch();
       closeModal?.();
     }
   };
