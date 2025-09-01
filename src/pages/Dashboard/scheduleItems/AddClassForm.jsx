@@ -5,19 +5,31 @@ import toast from "react-hot-toast";
 
 export default function AddClassForm({ closeModal }) {
   const axiosSecure = useAxiosSecure();
+  function convertTo12Hour(time24) {
+    if (!time24) return "";
+    let [hours, minutes] = time24.split(":");
+    hours = parseInt(hours, 10);
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes} ${ampm}`;
+  }
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm();
 
+  const timeValue = watch("time");
   const onSubmit = async (data) => {
     const fullData = {
       ...data,
-      date: new Date(data.date)
-      
-    }
+      date: new Date(data.date),
+      time: convertTo12Hour(data.time),
+    };
+
+    console.log(fullData);
     const res = await axiosSecure.post("/add-class", fullData);
     if (res?.data?.insertedId) {
       toast.success("Add your new class");

@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import AddClassForm from "./scheduleItems/AddClassForm";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import WeeklyClass from "./scheduleItems/weeklyClass";
 
 export default function Schedule() {
 
@@ -25,7 +26,6 @@ export default function Schedule() {
     }
   })
  
-  console.log(data)
 
   return (
     <div className="w-11/12 mx-auto">
@@ -50,7 +50,7 @@ export default function Schedule() {
       </div>
 
       {/* Data Section */}
-      <div>data</div>
+      <WeeklyClass data={data}/>
 
       {/* Modal Section */}
       <dialog
