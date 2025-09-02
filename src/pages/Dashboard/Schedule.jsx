@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import AddClassForm from "./scheduleItems/AddClassForm";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import WeeklyClass from "./scheduleItems/weeklyClass";
+import toast from "react-hot-toast";
 
 export default function Schedule() {
 
@@ -25,6 +26,16 @@ export default function Schedule() {
       
     }
   })
+
+   const {mutate} = useMutation({
+    mutationFn: async (id) =>{
+      const res = await axiosSecure.delete(`/classes-delete/${id}`);
+      if(res.data.deletedCount === 1){
+        toast.success("class removed successful");
+        refetch();
+      }
+    }
+   })
  
 
   return (
@@ -50,7 +61,7 @@ export default function Schedule() {
       </div>
 
       {/* Data Section */}
-      <WeeklyClass data={data}/>
+      <WeeklyClass data={data} mutate={mutate}/>
 
       {/* Modal Section */}
       <dialog
