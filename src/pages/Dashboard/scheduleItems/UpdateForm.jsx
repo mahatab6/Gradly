@@ -45,7 +45,6 @@ export default function UpdateForm({ formData, closeModal, refetch }) {
       date: new Date(data.date),
       time: convertTo12Hour(data.time),
     };
-    console.log(fullData)
 
     try {
       const res = await axios.patch(`/api/classes/${formData._id}`, fullData); // PATCH request
