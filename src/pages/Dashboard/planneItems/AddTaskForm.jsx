@@ -1,29 +1,29 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 
 export default function AddTaskForm({ closeModal, refetch }) {
   const axiosSecure = useAxiosSecure();
   
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
   } = useForm();
 
-  const timeValue = watch("time");
+
   const onSubmit = async (data) => {
     const fullData = {
       ...data,
-      date: new Date(data.date),
     };
-
-    const res = await axiosSecure.post("/add-class", fullData);
+    
+    const res = await axiosSecure.post("/added-task", fullData);
     if (res?.data?.insertedId) {
-      toast.success("Add your new class");
+      toast.success("Task added successfully");
       reset();
       refetch();
       closeModal?.();

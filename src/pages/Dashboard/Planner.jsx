@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import WeeklyClass from "./scheduleItems/weeklyClass";
 import toast from "react-hot-toast";
 import AddTaskForm from "./planneItems/AddTaskForm";
+import PlanneCard from "./planneItems/PlanneCard";
 
 export default function Planner() {
 
@@ -19,9 +19,9 @@ export default function Planner() {
   };
 
   const {data,refetch } = useQuery({
-    queryKey: ['card-data'],
+    queryKey: ['task-data'],
     queryFn: async() =>{
-      const result = await axiosSecure.get("/classes");
+      const result = await axiosSecure.get("/all-task");
       return result.data;
     }
   })
@@ -60,7 +60,7 @@ export default function Planner() {
       </div>
 
       {/* Data Section */}
-      {/* <WeeklyClass data={data} mutate={mutate} refetch={refetch}/> */}
+      <PlanneCard data={data} mutate={mutate} refetch={refetch}/>
 
       {/* Modal Section */}
       <dialog
