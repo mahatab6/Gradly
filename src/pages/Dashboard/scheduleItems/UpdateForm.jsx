@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { toast } from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-export default function UpdateForm({ formData, closeModal, refetch }) {
+export default function UpdateForm({ formData, closeModal }) {
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -46,18 +47,14 @@ export default function UpdateForm({ formData, closeModal, refetch }) {
       time: convertTo12Hour(data.time),
     };
 
-    try {
-      const res = await axios.patch(`/api/classes/${formData._id}`, fullData); // PATCH request
-      if (res?.data?.modifiedCount > 0) {
-        toast.success("Class updated successfully!");
-        refetch?.();
-        closeModal?.();
-      } else {
-        toast.error("No changes made or failed to update.");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to update class");
+    const res = await axiosSecure.put(
+      `/class-infoupdate/${formData?._id}`,
+      fullData
+    );
+
+    if (res.data.modifiedCount > 0) {
+      toast.success("Class updated successfully! 🎉");
+      closeModal();
     }
   };
 
@@ -98,18 +95,22 @@ export default function UpdateForm({ formData, closeModal, refetch }) {
             <option value="Friday">Friday</option>
             <option value="Saturday">Saturday</option>
           </select>
-          {errors.day && <p className="text-red-500 text-sm">{errors.day.message}</p>}
+          {errors.day && (
+            <p className="text-red-500 text-sm">{errors.day.message}</p>
+          )}
         </div>
 
         {/* Time */}
         <div>
-          <label className="block mb-1 font-medium">Time</label>
+          <label className="block mb-1 font-medium">Time: {formData?.time}</label>
           <input
             type="time"
             {...register("time", { required: "Time is required" })}
             className="w-full border p-2 rounded-md"
           />
-          {errors.time && <p className="text-red-500 text-sm">{errors.time.message}</p>}
+          {errors.time && (
+            <p className="text-red-500 text-sm">{errors.time.message}</p>
+          )}
         </div>
 
         {/* Instructor */}
@@ -120,7 +121,9 @@ export default function UpdateForm({ formData, closeModal, refetch }) {
             {...register("instructor", { required: "Instructor is required" })}
             className="w-full border p-2 rounded-md"
           />
-          {errors.instructor && <p className="text-red-500 text-sm">{errors.instructor.message}</p>}
+          {errors.instructor && (
+            <p className="text-red-500 text-sm">{errors.instructor.message}</p>
+          )}
         </div>
 
         {/* Date */}
@@ -131,7 +134,9 @@ export default function UpdateForm({ formData, closeModal, refetch }) {
             {...register("date", { required: "Date is required" })}
             className="w-full border p-2 rounded-md"
           />
-          {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
+          {errors.date && (
+            <p className="text-red-500 text-sm">{errors.date.message}</p>
+          )}
         </div>
 
         {/* Submit */}

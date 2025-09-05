@@ -4,7 +4,7 @@ import { IoTimeOutline } from "react-icons/io5";
 import { FaRegEdit, FaUser } from "react-icons/fa";
 import UpdateForm from "./UpdateForm";
 
-export default function WeeklyClass({ data, mutate }) {
+export default function WeeklyClass({ data, mutate, refetch }) {
   const days = [
     "Sunday",
     "Monday",
@@ -24,6 +24,7 @@ export default function WeeklyClass({ data, mutate }) {
 
   const closeModal = () => {
     modalRef.current?.close();
+    refetch()
   };
  
 
@@ -80,7 +81,7 @@ export default function WeeklyClass({ data, mutate }) {
             >
               <div className="modal-box">
                 {/* Pass closeModal so the form can close modal after success */}
-                <UpdateForm formData={formData}/>
+                <UpdateForm formData={formData} closeModal={closeModal}/>
 
                 <div className="modal-action">
                   {/* Close button with method="dialog" for quick closing */}

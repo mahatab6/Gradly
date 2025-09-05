@@ -23,7 +23,6 @@ export default function Schedule() {
     queryFn: async() =>{
       const result = await axiosSecure.get("/classes");
       return result.data;
-      
     }
   })
 
@@ -61,7 +60,7 @@ export default function Schedule() {
       </div>
 
       {/* Data Section */}
-      <WeeklyClass data={data} mutate={mutate}/>
+      <WeeklyClass data={data} mutate={mutate} refetch={refetch}/>
 
       {/* Modal Section */}
       <dialog
