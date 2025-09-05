@@ -28,6 +28,9 @@ export default function MainLayout() {
             <li>
               <Link to={'/dashboard/schedule'}>Class Schedule</Link>
             </li>
+            <li>
+              <Link to={'/dashboard/planner'}>Study Planner</Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -8,6 +8,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Schedule from "../pages/Dashboard/Schedule";
 import LoadingPage from "../pages/LoadingPage";
 import PrivateRouter from "./PrivateRouter";
+import Planner from "../pages/Dashboard/Planner";
 
 
 export const router = createBrowserRouter([
@@ -44,7 +45,11 @@ export const router = createBrowserRouter([
       {
         path:"schedule",
         element:<Schedule/>
-      }
+      },
+      {
+        path:"planner",
+        element:<Planner/>
+      },
     ]
   },
 ]);
