@@ -4,11 +4,16 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoMdDoneAll } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 
-export default function PlanneCard({ data }) {
-  console.log(data);
+export default function PlanneCard({ data, mutate }) {
+  
+
+  const handleDelete = (id) =>{
+    mutate(id);
+  }
+
   return (
     <div>
-      {data.map((item) => {
+      {data?.map((item) => {
         return (
           <div key={item?._id} className=" border p-2 rounded-2xl space-y-2">
             <div className="flex justify-between">
@@ -31,7 +36,7 @@ export default function PlanneCard({ data }) {
               <button className="btn ">
                 <FaRegEdit size={20} />
               </button>
-              <button className="btn ">
+              <button onClick={() => handleDelete(item?._id)} className="btn ">
                 <MdDeleteForever size={20} />
               </button>
             </div>

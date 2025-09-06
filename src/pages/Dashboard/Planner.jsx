@@ -28,9 +28,9 @@ export default function Planner() {
 
    const {mutate} = useMutation({
     mutationFn: async (id) =>{
-      const res = await axiosSecure.delete(`/classes-delete/${id}`);
+      const res = await axiosSecure.delete(`/task-delete/${id}`);
       if(res.data.deletedCount === 1){
-        toast.success("class removed successful");
+        toast.success("Task removed successful");
         refetch();
       }
     }
